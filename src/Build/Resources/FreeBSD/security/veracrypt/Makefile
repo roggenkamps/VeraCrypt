@@ -1,13 +1,13 @@
 # $FreeBSD$
 
 PORTNAME=	veracrypt
-PORTVERSION=	c0f46187dec76c4ff980a3267d716e7f05c92f33
+PORTVERSION=	e47464334efba356cb35b3654e5ae35f5acd6213
 PORTREVISION?=
 CATEGORIES=	security
 USE_GITHUB=     yes
 GH_ACCOUNT=     veracrypt
 GH_PROJECT=     VeraCrypt
-GH_TAGNAME=     c0f46187dec76c4ff980a3267d716e7f05c92f33
+GH_TAGNAME=     e47464334efba356cb35b3654e5ae35f5acd6213
 
 MASTER_SITES=   GH:vc \
 		SF/wxwindows/${WX_VER}/:wxwidgets
@@ -23,7 +23,7 @@ RUN_DEPENDS=	sudo:security/sudo # fusefs:sysutils/fusefs-libs
 
 WRKSRC=		${WRKDIR}/${GH_PROJECT}-${PORTVERSION}/src
 
-USES=		fuse iconv pkgconfig gmake
+USES=		desktop-file-utils fuse gmake iconv pkgconfig
 
 WX_VER=		3.0.2
 
@@ -45,11 +45,17 @@ PLIST_FILES+=	%%DOCSDIR%%/License.txt
 .endif
 
 .if ${PORT_OPTIONS:MX11}
-USE_GNOME=	gtk20
+USE_GNOME=	gtk30
 NOGUI=
+PLIST_FILES+=	%%PREFIX%%/share/applications/veracrypt.desktop
 .else
 NOGUI=		NOGUI=1
 .endif
+
+post-patch:
+	@${SED} -e 's|%%PREFIX%%|${PREFIX}|' \
+		< ${FILESDIR}/veracrypt.desktop \
+		> ${WRKSRC}/veracrypt.desktop
 
 do-build:
 	@${ECHO_MSG} "===>  Building for wxWidgets dependency"
@@ -63,6 +69,12 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	@${INSTALL_DATA} ${WRKSRC}/License.txt ${STAGEDIR}${DOCSDIR}
 	@${INSTALL_DATA} ${WRKSRC}/Release/Setup\ Files/VeraCrypt\ User\ Guide.pdf ${STAGEDIR}${DOCSDIR}
+.endif
+
+post-install:
+.if ${PORT_OPTIONS:MX11}
+	@${INSTALL_DATA} ${WRKSRC}/vercrypt.desktop \
+		${STAGEDIR}${PREFIX}/share/applications
 .endif
 
 .include <bsd.port.mk>
