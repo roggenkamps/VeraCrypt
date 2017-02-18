@@ -7,4 +7,4 @@ Exec=/usr/local/bin/veracrypt
 Icon=veracrypt
 Terminal=false
 Type=Application
-Categories=Encryption;Encryption Tools;Utility;System;
+Categories=Encryption;Security;Utility;System;
