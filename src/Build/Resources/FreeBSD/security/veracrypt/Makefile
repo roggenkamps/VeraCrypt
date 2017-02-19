@@ -4,30 +4,27 @@ PORTNAME=	veracrypt
 PORTVERSION=	dd09cbc8b38ef2047557eb7cdaeaf4e1e7e22e54
 PORTREVISION?=
 CATEGORIES=	security
-USE_GITHUB=     yes
-GH_ACCOUNT=     veracrypt
-GH_PROJECT=     VeraCrypt
-GH_TAGNAME=     dd09cbc8b38ef2047557eb7cdaeaf4e1e7e22e54
-
-MASTER_SITES=   GH:vc \
-		SF/wxwindows/${WX_VER}/:wxwidgets
-
-DISTFILES=	${GH_PROJECT}-${PORTVERSION}.tar.gz:vc \
-		wxWidgets-${WX_VER}.tar.bz2:wxwidgets
 
 MAINTAINER=	steveroggenkamps@gmail.com
 COMMENT=	Free open-source disk encryption software based on Truecrypt
 
-BUILD_DEPENDS=	nasm:devel/nasm
-RUN_DEPENDS=	sudo:security/sudo # fusefs:sysutils/fusefs-libs
+LICENSE_FILE=	${WRKSRC}/License.txt
 
-WRKSRC=		${WRKDIR}/${GH_PROJECT}-${PORTVERSION}/src
+USE_GITHUB=	yes
+GH_ACCOUNT=	veracrypt
+GH_PROJECT=	VeraCrypt
+GH_TAGNAME=	dd09cbc8b38ef2047557eb7cdaeaf4e1e7e22e54
+
+MASTER_SITES=	GH:vc \
+		SF/wxwindows/${WX_VER}/:wxwidgets
+DISTFILES=	${GH_PROJECT}-${PORTVERSION}.tar.gz:vc \
+		wxWidgets-${WX_VER}.tar.bz2:wxwidgets
 
 USES=		desktop-file-utils fuse gmake iconv pkgconfig
 
-WX_VER=		3.0.2
+WRKSRC=		${WRKDIR}/${GH_PROJECT}-${PORTVERSION}/src
 
-LICENSE_FILE=	${WRKSRC}/License.txt
+WX_VER=		3.0.2
 
 PLIST_FILES=	bin/veracrypt
 
@@ -36,8 +33,8 @@ X11_DESC=	With GUI (depends on X)
 
 .include <bsd.port.options.mk>
 
-GITHUB_MUST_SET_DISTNAME= no
-DISTNAME= ${VC_PROJECT}_${PORTVERSION}
+GITHUB_MUST_SET_DISTNAME=	no
+DISTNAME=	${VC_PROJECT}_${PORTVERSION}
 
 .if ${PORT_OPTIONS:MDOCS}
 PLIST_FILES+=	%%DOCSDIR%%/VeraCrypt\ User\ Guide.pdf
@@ -64,7 +61,7 @@ do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${NOGUI} WXSTATIC=1)
 
 do-install:
-	@${INSTALL_PROGRAM} ${WRKSRC}/Main/veracrypt ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/Main/veracrypt ${STAGEDIR}${PREFIX}/bin
 .if ${PORT_OPTIONS:MDOCS}
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	@${INSTALL_DATA} ${WRKSRC}/License.txt ${STAGEDIR}${DOCSDIR}
