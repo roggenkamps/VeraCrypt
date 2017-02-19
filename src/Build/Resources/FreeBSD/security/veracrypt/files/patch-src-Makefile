@@ -1,5 +1,5 @@
---- a/src/Makefile
-+++ b/src/Makefile
+--- src/Makefile
++++ src/Makefile
 @@ -285,6 +285,24 @@ ifeq "$(shell uname -s)" "FreeBSD"
 	PLATFORM := FreeBSD
 	PLATFORM_UNSUPPORTED := 1

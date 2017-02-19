@@ -1,5 +1,5 @@
---- a/src/Main/UserInterface.cpp.orig
-+++ b/src/Main/UserInterface.cpp
+--- src/Main/UserInterface.cpp.orig
++++ src/Main/UserInterface.cpp
 @@ -838,12 +838,12 @@ namespace VeraCrypt
  #else
  		// MIME handler for directory seems to be unavailable through wxWidgets

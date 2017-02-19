@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	veracrypt
-PORTVERSION=	dd09cbc8b38ef2047557eb7cdaeaf4e1e7e22e54
+PORTVERSION=	b15cb5794d5cac56d50e2caa8fcf619651cded1f
 PORTREVISION?=
 CATEGORIES=	security
 
@@ -13,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/License.txt
 USE_GITHUB=	yes
 GH_ACCOUNT=	veracrypt
 GH_PROJECT=	VeraCrypt
-GH_TAGNAME=	dd09cbc8b38ef2047557eb7cdaeaf4e1e7e22e54
+GH_TAGNAME=	b15cb5794d5cac56d50e2caa8fcf619651cded1f
 
 MASTER_SITES=	GH:vc \
 		SF/wxwindows/${WX_VER}/:wxwidgets
